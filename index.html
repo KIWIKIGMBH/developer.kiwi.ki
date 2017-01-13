@@ -1,8 +1,1161 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <title></title>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>KIWI API Documentation</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #272822;
+  background-color: #f92672;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #f8f8f2;
+}
+.highlight .p, .highlight .pi {
+  color: #f8f8f2;
+}
+.highlight .gi {
+  color: #a6e22e;
+}
+.highlight .gd {
+  color: #f92672;
+}
+.highlight .gh {
+  color: #66d9ef;
+  background-color: #272822;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #ae81ff;
+}
+.highlight .kc {
+  color: #fd971f;
+}
+.highlight .kt {
+  color: #fd971f;
+}
+.highlight .kd {
+  color: #fd971f;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #a6e22e;
+}
+.highlight .sr {
+  color: #a1efe4;
+}
+.highlight .si {
+  color: #cc6633;
+}
+.highlight .se {
+  color: #cc6633;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #66d9ef;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #a6e22e;
+}
+.highlight .ss {
+  color: #a6e22e;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
   </head>
-  <body>
+
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;python&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+              <a href="#" data-language-name="python">python</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='http://kiwi.ki'>KIWI.KI GmbH</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="introduction">Introduction</h1>
+
+<p>This is the documentation for the HTTP API provided by <a href="https://kiwi.ki/en/">KIWI.KI GmbH</a> for remote unlocking and administration of doors. This API can be used for integration into existing systems and for application development.</p>
+
+<p>You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs on the top right.</p>
+
+<h1 id="pre-release-disclaimer">Pre-release Disclaimer</h1>
+
+<aside class="warning">
+API endpoints prepended with <strong>/pre/</strong> are marked as pre-release; their availability and functionality are subject to change without notice, along with their associated documentation provided herein.
+</aside>
+
+<p>Stable releases of the KIWI API are forthcoming.</p>
+
+          <h1 id="getting-started">Getting Started</h1>
+
+<h2 id="getting-a-user-account">Getting a User Account</h2>
+
+<p>A <a href="#users">user account</a> is required for most interactions with the KIWI API. An account can be obtained by:</p>
+
+<ul>
+<li>Being given an account by an administrator or manager who is using <a href="https://portal.kiwi.ki">Portal</a>.</li>
+<li>Creating an account with the <a href="https://mobile.kiwi.ki/#customer-number-question">Mobile Web App</a>.</li>
+<li>Creating an account using API endpoints. See <a href="#create-a-new-user">Creating a New User</a></li>
+<li>Test accounts and permissions can be granted on request by the KIWI team. Send us an email to <a href="mailto:service@kiwi.ki">service@kiwi.ki</a></li>
+</ul>
+
+<p>See <a href="https://kiwi.ki/en/kiwi-applications/">KIWI Applications</a> to learn more about apps available for user account administration.</p>
+
+<h2 id="getting-permissions-to-a-door">Getting Permissions to a Door</h2>
+
+<p>A user account must be granted <a href="#permissions">permissions</a> to a door before that user can unlock it remotely or perform other actions with it using the API. Permissions can be granted by an administrator or manager using <a href="https://portal.kiwi.ki">Portal</a>.</p>
+
+<p>See <a href="#permissions">Permissions</a> for more information.</p>
+
+<h2 id="getting-a-session-key">Getting a session key</h2>
+<pre class="highlight shell"><code>curl https://api.kiwi.ki/pre/session/ -d <span class="s1">'{"username":"user@example.com", "password":"mypassword"}'</span> -H <span class="s1">'Content-Type: application/json'</span>
+</code></pre>
+<blockquote>
+<p>Reponse:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"session"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@example.com"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"max_expires"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-03T14:45:32.954709+02:00"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"expires"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-01-11T14:45:32.954709+01:00"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-01-03T14:45:32.841411+01:00"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"session_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cda9341330b0bab64b713a866b24b477"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"account_verification"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="w">
+    </span><span class="p">},</span><span class="w"> 
+    </span><span class="nt">"session_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cda9341330b0bab64b713a866b24b477"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>A valid session key is a required parameter for most API requests. With a user account, a session key can be retrieved using the <code class="prettyprint">/pre/session/</code> endpoint:</p>
+
+<p>Perform a <code class="prettyprint">POST</code> to <code class="prettyprint">https://api.kiwi.ki/pre/session/</code> with the payload in the form:</p>
+
+<p><code class="prettyprint">{&quot;username&quot;: &quot;user@example.com&quot;, &quot;password&quot;: &quot;my_password&quot;}</code></p>
+
+<p>Example session key: <code class="prettyprint">cda9341330b0bab64b713a866b24b477</code></p>
+
+<p>See <a href="#authentication">Authentication</a> for more information.</p>
+
+<h2 id="opening-a-door">Opening a door</h2>
+<pre class="highlight shell"><code>curl -X POST <span class="s2">"https://api.kiwi.ki/pre/sensors/123/act/open/?session_key=cda9341330b0bab64b713a866b24b477"</span>
+</code></pre>
+<blockquote>
+<p>Reponse:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Each KIWI equipped door has an associated <a href="#sensors">sensor</a>, which can detect KIWI Kis and trigger unlocking of the door.</p>
+
+<p>Perform a <code class="prettyprint">POST</code> to <code class="prettyprint">https://api.kiwi.ki/pre/sensors/&lt;sensor_id&gt;/act/open/?session_key=&lt;session_key&gt;</code> to unlock a door.</p>
+
+<p>Where <code class="prettyprint">sensor_id</code> is the ID of the sensor connected to the door, and <code class="prettyprint">session_key</code> corresponds to a valid session obtained earlier with a username/password. See <a href="#open-door">Open Door</a> for more information.</p>
+
+<p>See <a href="#sensors">Sensors</a> for how search and retrieve sensor IDs.</p>
+
+          <h1 id="api-requests">API Requests</h1>
+
+<h2 id="base-url">Base URL</h2>
+
+<p>The base URL for making HTTP requests with the KIWI API is</p>
+
+<aside>
+<strong>https://api.kiwi.ki/pre/</strong>
+</aside>
+
+<p>Where <code class="prettyprint">/pre/</code> indicates <a href="#pre-release-disclaimer">Pre-release</a> status.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/HTTPS">HTTPS</a> is required for all API requests.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>When making HTTP requests with the KIWI API, parameters can be passed in two ways:</p>
+
+<h3 id="query-string">Query String</h3>
+
+<p>For <code class="prettyprint">GET</code> requests, a query string must be used.</p>
+
+<p>A <a href="https://en.wikipedia.org/wiki/Query_string">query string</a> can be appended to the request URL with the parameter names and values. E.g.</p>
+
+<aside>
+https://api.kiwi.ki/pre/sensors/?session_key=94be2d729ed71bf7d5860404e6d500e1
+</aside>
+
+<p>In this example the <code class="prettyprint">session_key</code> parameter is passed with the value &ldquo;94be2d729ed71bf7d5860404e6d500e1&rdquo; to the <a href="#list-sensors">sensors</a> endpoint.</p>
+
+<h3 id="request-body">Request Body</h3>
+
+<p>For <code class="prettyprint">POST</code> requests, parameters must be passed in the <a href="https://en.wikipedia.org/wiki/HTTP_message_body">request body</a> with the content type <code class="prettyprint">application/json</code>.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/CURL">cURL</a> example:</p>
+
+<aside>
+curl https://api.kiwi.ki/pre/session/ -d &rsquo;{&ldquo;username&rdquo;:&ldquo;user@example.com&rdquo;, &ldquo;password&rdquo;:&ldquo;mypassword&rdquo;}&rsquo; -H &lsquo;Content-Type: application/json&rsquo;
+</aside>
+
+<p>Where the <code class="prettyprint">-d</code> flag specifies the body, and <code class="prettyprint">-H</code> specifies the request headers.</p>
+
+          <h1 id="authentication">Authentication</h1>
+
+<p>Before most API requests can be made, a login session must be started by providing a valid username and password. A session key will then be given back from the API, which can be used for authentication on further API requests.</p>
+
+<p>Authentication with a session key covers general access to the API endpoints, but for controlling individual permissions to doors, see <a href="#permissions">Permissions</a>.</p>
+
+<aside class="notice">
+A valid session key must be provided for most API requests. Remember to specify the <strong>session_key</strong> parameter.
+</aside>
+
+<h2 id="get-session-key">Get Session Key</h2>
+<pre class="highlight shell"><code>curl https://api.kiwi.ki/pre/session/ -d <span class="s1">'{"username":"user@example.com", "password":"mypassword"}'</span> -H <span class="s1">'Content-Type: application/json'</span>
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">login_credentials</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">username</span><span class="o">=</span><span class="s">"myusername"</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s">"supersecretpassword"</span><span class="p">)</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s">"https://api.kiwi.ki/pre/session/"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">login_credentials</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">)</span>
+<span class="n">session_key</span>
+</code></pre>
+<blockquote>
+<p>Reponse:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"session"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myusername"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"max_expires"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-12T17:12:52.727104+01:00"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"expires"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-12T18:12:52.727104+01:00"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-12T17:12:52.613417+01:00"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"is_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"session_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5633238d67040b7316456e47ec5181e0"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"account_verification"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"session_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5633238d67040b7316456e47ec5181e0"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST /pre/session/</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>username</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>The username for the user account, which is usually an email address.</td>
+<td>user@example.com</td>
+</tr>
+<tr>
+<td>password</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>The password for the user account.</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>The username of the <a href="#users">authenticated user</a> (usually an email address).</td>
+</tr>
+<tr>
+<td>max_expires</td>
+<td>datetime</td>
+<td>The maximum lifetime of the session in timezone aware <a href="http://www.iso.org/iso/home/standards/iso8601.htm">ISO 8601</a> format.</td>
+</tr>
+<tr>
+<td>expires</td>
+<td>datetime</td>
+<td>The expiration time while inactive in timezone aware <a href="http://www.iso.org/iso/home/standards/iso8601.htm">ISO 8601</a> format.</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>datetime</td>
+<td>The creation time of the session in timezone aware <a href="http://www.iso.org/iso/home/standards/iso8601.htm">ISO 8601</a> format.</td>
+</tr>
+<tr>
+<td>is_admin</td>
+<td>boolean</td>
+<td>True only for KIWI staff with admin rights.</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>integer</td>
+<td>The <a href="#users">user&rsquo;s</a> unique identifier.</td>
+</tr>
+<tr>
+<td>session_key</td>
+<td>string</td>
+<td>All further API requests that require authentication will need this value to be passed as <code class="prettyprint">session_key</code>.</td>
+</tr>
+<tr>
+<td>account_verification</td>
+<td>integer</td>
+<td>Your verification level.</td>
+</tr>
+</tbody></table>
+
+<h3 id="verification-level">Verification Level</h3>
+
+<table><thead>
+<tr>
+<th>Level</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0</td>
+<td>Uncompleted online registration.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Unverified account.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Unverified account with claimed Ki.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Verified online user account.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Verified offline (managed) user account.</td>
+</tr>
+</tbody></table>
+
+<p>The <code class="prettyprint">result.session_key</code> is deprecated and should not be used. Use <code class="prettyprint">result.session.session_key</code> instead.</p>
+
+<p>For more information about obtaining a user account, see this <a href="#getting-a-user-account">getting started section</a>.</p>
+
+          <h1 id="permissions">Permissions</h1>
+
+<p>For each <a href="#sensors">sensor</a> (door), permissions on that sensor control:</p>
+
+<ul>
+<li>Which users can unlock the door.</li>
+<li>Which permissions users can grant to other users to the door.</li>
+<li>Which users can be seen by other users.</li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Permission Type</th>
+<th>Able to Grant</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Guest</td>
+<td>(None)</td>
+<td>The user is able to unlock the door, but cannot grant any other user permission to the door.</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>Guest</td>
+<td>The user is able to unlock the door, and can grant other users <em>Guest</em> permission to the door (but no other permission type).</td>
+</tr>
+<tr>
+<td>Manager</td>
+<td>Host, Guest</td>
+<td>The user is able to unlock the door, and can grant other users <em>Guest</em> or <em>Host</em> permission to the door.</td>
+</tr>
+<tr>
+<td>Admin</td>
+<td>Manager, Host, Guest</td>
+<td>The user is able to unlock the door, and can grant other users <em>Guest</em>, <em>Host</em> or <em>Manager</em> permission to the door.</td>
+</tr>
+</tbody></table>
+
+          <h1 id="addresses">Addresses</h1>
+<pre class="highlight shell"><code>curl https://api.kiwi.ki/pre/addresses/search/<span class="se">\?</span>street<span class="se">\=</span>Voltastr.<span class="se">\&amp;</span>number<span class="se">\=</span>5<span class="se">\&amp;</span>plz<span class="se">\=</span>13355
+</code></pre>
+<blockquote>
+<p>Reponse:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"total_results"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"> 
+    </span><span class="nt">"exists"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>With this special endpoint, you can check if an address exists in our system.
+An existing address indicates that this building is already KIWI equipped.</p>
+
+<p>the value <code class="prettyprint">&quot;exists&quot;: true</code> tells you that a door sensor is available at this address. </p>
+
+<p>Non-authenticated users are permitted to know the existence of sensors (<code class="prettyprint">&quot;exists&quot;: true</code>) but may not be permitted to see details about those sensors. In this case an empty results list is returned.</p>
+
+<p><code class="prettyprint">GET /pre/addresses/search/</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>street</td>
+<td><code class="prettyprint">string</code></td>
+<td>Street name in <a href="https://www.deutschepost.de/en/d/deutsche-post-direkt/datafactory.html">Deutsche Post Data Factory Format</a></td>
+<td>Voltastr.</td>
+</tr>
+<tr>
+<td>number</td>
+<td><code class="prettyprint">integer</code></td>
+<td>House or apartment number</td>
+<td>5</td>
+</tr>
+<tr>
+<td>plz</td>
+<td><code class="prettyprint">integer</code></td>
+<td>ZIP code</td>
+<td>13355</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+This endpoint does not require a session_key! Every request will wait 2 seconds until it gets executed to prevent brute force attacks.
+</aside>
+
+          <h1 id="sensors">Sensors</h1>
+
+<aside class="notice">
+A Sensor is the device that opens a door by triggering the door buzzer. It usually sits behind the bell panel and communicates via the KIWI Gateway with our Infrastructure. You can send commands to this sensor via the API. The endpoints for that are listed in this section.
+</aside>
+
+<h2 id="list-sensors">List Sensors</h2>
+<pre class="highlight shell"><code>curl https://api.kiwi.ki/pre/sensors/?session_key<span class="o">=</span>94be2d729ed71bf7d5860404e6d500e1
+</code></pre>
+<blockquote>
+<p>In some cases, you want to search for an Address but you don&rsquo;t know the exact address format. Use the fuzzy search field combined with filters.</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://api.kiwi.ki/pre/sensors/<span class="se">\</span>
+  ?session_key<span class="o">=</span>d89eed49cdb851431eacbff8d948927f<span class="se">\</span>
+  &amp;page_number<span class="o">=</span>1&amp;page_size<span class="o">=</span>20<span class="se">\</span>
+  &amp;search<span class="o">=</span>Volta<span class="se">\</span>
+  &amp;postal_code<span class="o">=</span>13355<span class="se">\</span>
+  &amp;city<span class="o">=</span>Berlin
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">doorlist_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">session_key</span><span class="o">=</span><span class="s">"d89eed49cdb851431eacbff8d948927f"</span><span class="p">,</span>
+    <span class="n">page_number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">page_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">search</span><span class="o">=</span><span class="s">"Volta"</span><span class="p">,</span>
+    <span class="n">postal_code</span><span class="o">=</span><span class="mi">13355</span><span class="p">,</span>
+    <span class="n">city</span><span class="o">=</span><span class="s">"Berlin"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+   <span class="s">"https://api.kiwi.ki/pre/sensors/"</span><span class="p">,</span>
+   <span class="n">params</span><span class="o">=</span><span class="n">doorlist_params</span>
+<span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre>
+<blockquote>
+<p>Reponse:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"order_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ASC"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"total_results"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"sort_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"page_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"sensors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"hardware_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOOR"</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"sensor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9403</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"highest_permission"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"hardware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3A"</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"device_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PUBLIC"</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"specifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tofus Apartment"</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Voltastr. 11"</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13355"</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">52.54189825</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.39018362</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4731</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="nt">"sensor_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PewYGAAAMFO9gHlQAQAA9Q=="</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"firmware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11110e"</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"crystal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"can_invite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> 
+</span></code></pre>
+<p>Returns a list of sensors (doors) that the <a href="#authentication">authenticated</a> user has access to.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /pre/sensors/</code></p>
+
+<h3 id="parameters-authentication">Parameters - Authentication</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+</tbody></table>
+
+<h3 id="parameters-pagination-sorting">Parameters - Pagination / Sorting</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sort_by</td>
+<td><code class="prettyprint">string</code>  (<em>optional</em>)</td>
+<td>Property to sort results by. (&lsquo;id&rsquo;, &#39;distance&rsquo;, &#39;specifier&rsquo;, &#39;street&rsquo;, or &#39;postal_code&rsquo;)</td>
+<td>street</td>
+</tr>
+<tr>
+<td>order_by</td>
+<td><code class="prettyprint">string</code>  (<em>optional</em>)</td>
+<td>Sorting direction (&#39;asc&rsquo; or &#39;desc&rsquo;)</td>
+<td>desc</td>
+</tr>
+<tr>
+<td>page_size</td>
+<td><code class="prettyprint">integer</code> (<em>optional</em>)</td>
+<td>The number of sensors to return.</td>
+<td>20</td>
+</tr>
+<tr>
+<td>page_number</td>
+<td><code class="prettyprint">integer</code> (<em>optional</em>)</td>
+<td>When <code class="prettyprint">page_size</code> is given, specifies the page index.</td>
+<td>5</td>
+</tr>
+</tbody></table>
+
+<h3 id="parameters-filtering">Parameters - Filtering</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>search</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors that have a partial match to the given string for the &#39;specifier&rsquo;, &#39;street&rsquo;, &#39;postal_code&rsquo; or &#39;city&rsquo; properties.</td>
+<td>Voltastr. 5 Berlin</td>
+</tr>
+<tr>
+<td>specifier</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors that have a partial match to the given string for the &#39;specifier&rsquo; property.</td>
+<td>Keller</td>
+</tr>
+<tr>
+<td>street</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors that have a partial match to the given string for the &#39;street&rsquo; property.</td>
+<td>Voltastr. 5</td>
+</tr>
+<tr>
+<td>postal_code</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors that have a partial match to the given string for the &#39;postal_code&rsquo; property.</td>
+<td>13355</td>
+</tr>
+<tr>
+<td>city</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors that have a partial match to the given string for the &#39;city&rsquo; property.</td>
+<td>Berlin</td>
+</tr>
+<tr>
+<td>state</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors that have a partial match to the given string for the &#39;state&rsquo; property.</td>
+<td>Niedersachsen</td>
+</tr>
+<tr>
+<td>device_type</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors of the given type (&#39;PUBLIC&rsquo;, &#39;PRIVATE&rsquo;, &#39;TEST&rsquo;).</td>
+<td>TEST</td>
+</tr>
+<tr>
+<td>permission</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>firmware</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors with the given firmware version.</td>
+<td></td>
+</tr>
+<tr>
+<td>hardware</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors with the given hardware version.</td>
+<td></td>
+</tr>
+<tr>
+<td>crystal</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors with the given crystal type.</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h3 id="parameters-geolocation">Parameters - Geolocation</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>lat</td>
+<td><code class="prettyprint">float</code> (<em>optional</em>)</td>
+<td>Latitude. When <code class="prettyprint">lat</code> and <code class="prettyprint">lng</code> are specified, the list of sensors returned will be sorted by their proximity to the given geolocation.</td>
+<td>52.508125</td>
+</tr>
+<tr>
+<td>lng</td>
+<td><code class="prettyprint">float</code> (<em>optional</em>)</td>
+<td>Longitude. When <code class="prettyprint">lat</code> and <code class="prettyprint">lng</code> are specified, the list of sensors returned will be sorted by their proximity to the given geolocation.</td>
+<td>13.460401</td>
+</tr>
+<tr>
+<td>max_distance</td>
+<td><code class="prettyprint">float</code> (<em>optional</em>)</td>
+<td>When <code class="prettyprint">lat</code> and <code class="prettyprint">lng</code> are specified, only sensors that are within the given distance (in kilometers) will be returned.</td>
+<td>0.5</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Sidenote — for this version, the trailing slash in the URI is important!
+</aside>
+
+<h2 id="get-sensor-details">Get Sensor Details</h2>
+<pre class="highlight shell"><code>curl https://api.kiwi.ki/pre/sensors/9403/?session_key<span class="o">=</span>94be2d729ed71bf7d5860404e6d500e1
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c"># use our example door</span>
+<span class="n">sensor_id</span> <span class="o">=</span> <span class="mi">9403</span>
+<span class="n">session_key</span> <span class="o">=</span> <span class="s">"94be2d729ed71bf7d5860404e6d500e1"</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s">"https://api.kiwi.ki/pre/sensors/</span><span class="si">%</span><span class="s">s/"</span> <span class="o">%</span> <span class="n">sensor_id</span><span class="p">,</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s">"session_key"</span><span class="p">:</span><span class="n">session_key</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"sensor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"hardware_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOOR"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"sensor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9403</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"highest_permission"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"hardware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3A"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"device_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PUBLIC"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"specifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tofus Apartment"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Voltastr. 5"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13355"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">52.54189825</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.39018362</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4731</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"sensor_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PewYGAAAMFO9gHlQAQAA9Q=="</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"firmware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11110e"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"crystal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"last_configuration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"pushed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-29T17:07:25.360179+01:00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-29T17:06:21.772560+01:00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Command conf failed: retry limit exceeded"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"can_invite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /pre/sensors/&lt;sensor_id&gt;/</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+<tr>
+<td>sensor_id</td>
+<td><code class="prettyprint">integer</code> (<em>required</em>)</td>
+<td>The unique ID of the <a href="#sensors">sensor</a>.</td>
+<td>9403</td>
+</tr>
+</tbody></table>
+
+<h2 id="open-door">Open Door</h2>
+<pre class="highlight shell"><code>curl -X POST https://api.kiwi.ki/pre/sensors/9403/act/open/?session_key<span class="o">=</span>94be2d729ed71bf7d5860404e6d500e1
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c"># assuming you already have a session_key</span>
+<span class="n">session_key</span> <span class="o">=</span> <span class="s">"94be2d729ed71bf7d5860404e6d500e1"</span>
+<span class="n">sensor_id</span> <span class="o">=</span> <span class="mi">9403</span>
+
+<span class="n">resonse</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s">"https://api.kiwi.ki/pre/sensors/</span><span class="si">%</span><span class="s">s/act/open?session_key=</span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">sensor_id</span><span class="p">,</span> <span class="n">session_key</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Given <a href="#authentication">authentication</a> and sufficient <a href="#permissions">permissions</a>, allows unlocking of a door connected to a sensor.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST /pre/sensors/&lt;sensor_id&gt;/act/open</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+<tr>
+<td>sensor_id</td>
+<td><code class="prettyprint">integer</code> (<em>required</em>)</td>
+<td>The unique ID of the <a href="#sensors">sensor</a>.</td>
+<td>9403</td>
+</tr>
+</tbody></table>
+
+<h2 id="assign-custom-name-to-sensor">Assign Custom Name to Sensor</h2>
+<pre class="highlight shell"><code>curl <span class="s1">'https://api.kiwi.ki/pre/fnames/sensor/9403/'</span> <span class="se">\</span>
+-H <span class="s1">'Content-Type: application/json; charset=UTF-8'</span> <span class="se">\</span>
+-d <span class="s1">'{"session_key":"94be2d729ed71bf7d5860404e6d500e1","friendly_name":"foobar"}'</span>
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">session_key</span> <span class="o">=</span> <span class="s">"94be2d729ed71bf7d5860404e6d500e1"</span>
+<span class="n">sensor_id</span> <span class="o">=</span> <span class="mi">9403</span>
+
+<span class="n">name_parameter</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"friendly_name"</span><span class="p">:</span> <span class="s">"foobar"</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s">"https://api.kiwi.ki/pre/fnames/sensor/</span><span class="si">%</span><span class="s">s/?session_key=</span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">sensor_id</span><span class="p">,</span> <span class="n">session_key</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">name_parameter</span>
+<span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+</code></pre><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"sensor_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9403"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"fname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Red Door"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Assigns a custom name to a sensor. Each user may assign their own names to each sensor; these custom names are visible only to the users that created them.</p>
+
+<p>Custom names will appear in the <code class="prettyprint">sensor_name</code> fields returned by the <a href="#list-sensors">/sensors</a> and <a href="#get-sensor-details">/sensors/<sensor_id></a> endpoints.</p>
+
+<p><code class="prettyprint">POST /pre/fnames/sensor/&lt;sensor_id&gt;/</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+<tr>
+<td>sensor_id</td>
+<td><code class="prettyprint">integer</code> (<em>required</em>)</td>
+<td>The unique ID of the <a href="#sensors">sensor</a>.</td>
+<td>9403</td>
+</tr>
+<tr>
+<td>fname</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A custom name to give to the sensor.</td>
+<td>My Red Door</td>
+</tr>
+</tbody></table>
+
+          <h1 id="users">Users</h1>
+
+<h2 id="get-user-details">Get User Details</h2>
+<pre class="highlight shell"><code>curl https://api.kiwi.ki/pre/users/2664/?session_key<span class="o">=</span>178d3d01a1872f58573183833897a732
+</code></pre>
+<blockquote>
+<p>Reponse:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo.barrington@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"friendly_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"contact"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Foo"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"segment_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Barrington"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10DE1600002664"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2664</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">61</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code class="prettyprint">GET /pre/users/&lt;user_id&gt;/</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td><code class="prettyprint">integer</code> (<em>required</em>)</td>
+<td>The unique ID for the user. Note that the <a href="#authentication">session endpoint</a> returns the <code class="prettyprint">user_id</code>.</td>
+<td>123</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-new-user">Create a new User</h2>
+<pre class="highlight shell"><code>curl -X POST -d <span class="se">\</span>
+<span class="s1">'{
+    session_key":"178d3d01a1872f58573183833897a732",
+    "name":"Foo",
+    "lastname":"Barrington",
+    "title":"Mr",
+    "segment_id":"10",
+    "country":"DE",
+    "i_have_read_and_accepted_kiwidotki_agb":true,
+    "lang":"en",
+    "password":"supersecretpassword",
+    "email":"foo.barrington@example.com"
+}'</span> https://api.kiwi.ki/pre/users/
+
+</code></pre>
+<blockquote>
+<p>Reponse:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo.barrington@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2953</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo.barrington@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"myself_group_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">21637</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code class="prettyprint">POST /pre/users/</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+<tr>
+<td>email</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>The email address of the new user. This will become the user&rsquo;s username.</td>
+<td>user@example.com</td>
+</tr>
+<tr>
+<td>password</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>The new password for the user.</td>
+<td></td>
+</tr>
+<tr>
+<td>lang</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>The default language to use for correspondence and app display with this user. Defaults to &lsquo;de&rsquo;.</td>
+<td>en</td>
+</tr>
+<tr>
+<td>country</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>The country of residence for the user.</td>
+<td>DE</td>
+</tr>
+<tr>
+<td>segment_id</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Marks which customer segment the user belongs to.</td>
+<td>10</td>
+</tr>
+</tbody></table>
+
+<h3 id="terms-and-conditions-agb">Terms and Conditions (AGB)</h3>
+
+<p>The <a href="https://kiwi.ki/agb-2/">KIWI.KI AGBs</a> must be accepted for user account creation. The following parameter is mandatory:</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>i_have_read_and_accepted_kiwidotki_agb</td>
+<td><code class="prettyprint">boolean</code> (<em>required</em>)</td>
+<td>&#39;true&rsquo; must be given, or the account creation request will be rejected.</td>
+<td>true</td>
+</tr>
+</tbody></table>
+
+<p>The user is now created in the system, but not verified yet. To use it, you need to verify the email address. For that, click on the verification link you just received via email.</p>
+
+          <h1 id="errors">Errors</h1>
+
+<p>The KIWI.KI API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request &ndash; Your request is buggy. Check the parameters</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized &ndash; Your are not logged in. Authenticate please.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden &ndash; The endpoint you requested is for administrators only</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found &ndash; The specified resource could not be found</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed &ndash; You tried to access a resource with an invalid method</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+</tr>
+<tr>
+<td>410</td>
+<td>Gone &ndash; The resource requested has been removed from our servers</td>
+</tr>
+<tr>
+<td>418</td>
+<td>I&rsquo;m a teapot</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests &ndash; Rate of requests exceeded limit.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+                <a href="#" data-language-name="python">python</a>
+          </div>
+      </div>
+    </div>
   </body>
 </html>
