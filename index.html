@@ -648,38 +648,38 @@ A Sensor is the device that opens a door by triggering the door buzzer. It usual
 <tr>
 <td>search</td>
 <td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors that have a partial match to the given string for the &#39;specifier&rsquo;, &#39;street&rsquo;, &#39;postal_code&rsquo; or &#39;city&rsquo; properties.</td>
+<td>Only include sensors that have a partial case-insensitive match to the given string for the &#39;specifier&rsquo;, &#39;street&rsquo;, &#39;postal_code&rsquo; or &#39;city&rsquo; properties.</td>
 <td>Voltastr. 5 Berlin</td>
 </tr>
 <tr>
 <td>specifier</td>
 <td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors that have a partial match to the given string for the &#39;specifier&rsquo; property.</td>
+<td>Only include sensors that have a case-insensitive match to the given string for the &#39;specifier&rsquo; property.</td>
 <td>Keller</td>
 </tr>
 <tr>
 <td>street</td>
 <td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors that have a partial match to the given string for the &#39;street&rsquo; property.</td>
+<td>Only include sensors that have a case-insensitive match to the given string for the &#39;street&rsquo; property.</td>
 <td>Voltastr. 5</td>
-</tr>
-<tr>
-<td>postal_code</td>
-<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors that have a partial match to the given string for the &#39;postal_code&rsquo; property.</td>
-<td>13355</td>
 </tr>
 <tr>
 <td>city</td>
 <td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors that have a partial match to the given string for the &#39;city&rsquo; property.</td>
+<td>Only include sensors that have a case-insensitive match to the given string for the &#39;city&rsquo; property.</td>
 <td>Berlin</td>
 </tr>
 <tr>
 <td>state</td>
 <td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors that have a partial match to the given string for the &#39;state&rsquo; property.</td>
+<td>Only include sensors that have a case-insensitive match to the given string for the &#39;state&rsquo; property.</td>
 <td>Niedersachsen</td>
+</tr>
+<tr>
+<td>postal_code</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>Only include sensors with the given postal code.</td>
+<td>13355</td>
 </tr>
 <tr>
 <td>device_type</td>
@@ -690,8 +690,8 @@ A Sensor is the device that opens a door by triggering the door buzzer. It usual
 <tr>
 <td>permission</td>
 <td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td></td>
-<td></td>
+<td>Only include sensors for which the <a href="#authentication">authenticated</a> user&rsquo;s <a href="#permissions">permission type</a> to the sensor is equal or greater than the given type. Possible values: &#39;IS_GUEST&rsquo;, &#39;IS_HOST&rsquo;, &#39;IS_MANAGER&rsquo;, &#39;IS_ADMIN&rsquo;.</td>
+<td>IS_HOST</td>
 </tr>
 <tr>
 <td>firmware</td>
@@ -902,7 +902,7 @@ Sidenote — for this version, the trailing slash in the URI is important!
 </span></code></pre>
 <p>Assigns a custom name to a sensor. Each user may assign their own names to each sensor; these custom names are visible only to the users that created them.</p>
 
-<p>Custom names will appear in the <code class="prettyprint">sensor_name</code> fields returned by the <a href="#list-sensors">/sensors</a> and <a href="#get-sensor-details">/sensors/<sensor_id></a> endpoints.</p>
+<p>Custom names will appear in the <code class="prettyprint">sensor_name</code> fields returned by the <a href="#list-sensors">/sensors</a> and <a href="#get-sensor-details">/sensors/&lt;sensor_id&gt;</a> endpoints.</p>
 
 <p><code class="prettyprint">POST /pre/fnames/sensor/&lt;sensor_id&gt;/</code></p>
 
