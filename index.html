@@ -564,7 +564,6 @@ A Sensor is the device that opens a door by triggering the door buzzer. It usual
           </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.39018362</span><span class="p">,</span><span class="w"> 
           </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4731</span><span class="w">
         </span><span class="p">},</span><span class="w"> 
-        </span><span class="nt">"sensor_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PewYGAAAMFO9gHlQAQAA9Q=="</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"firmware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11110e"</span><span class="p">,</span><span class="w"> 
@@ -782,7 +781,6 @@ Sidenote — for this version, the trailing slash in the URI is important!
         </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.39018362</span><span class="p">,</span><span class="w">
         </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4731</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nt">"sensor_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PewYGAAAMFO9gHlQAQAA9Q=="</span><span class="p">,</span><span class="w">
       </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
       </span><span class="nt">"firmware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11110e"</span><span class="p">,</span><span class="w">
@@ -902,7 +900,8 @@ Sidenote — for this version, the trailing slash in the URI is important!
 </span></code></pre>
 <p>Assigns a custom name to a sensor. Each user may assign their own names to each sensor; these custom names are visible only to the users that created them.</p>
 
-<p>Custom names will appear in the <code class="prettyprint">sensor_name</code> fields returned by the <a href="#list-sensors">/sensors</a> and <a href="#get-sensor-details">/sensors/&lt;sensor_id&gt;</a> endpoints.</p>
+<p>Custom names will appear in the <code class="prettyprint">sensor_name</code> fields returned by the <a href="#list-sensors">/sensors</a> and <a href="#get-sensor-details">/sensors/&lt;sensor_id&gt;</a> endpoints.
+You can also search for sensors by their custom names using <a href="#search-for-sensor-by-custom-name">this endpoint</a>.</p>
 
 <p><code class="prettyprint">POST /pre/fnames/sensor/&lt;sensor_id&gt;/</code></p>
 
@@ -932,6 +931,66 @@ Sidenote — for this version, the trailing slash in the URI is important!
 <td>fname</td>
 <td><code class="prettyprint">string</code> (<em>required</em>)</td>
 <td>A custom name to give to the sensor.</td>
+<td>My Red Door</td>
+</tr>
+</tbody></table>
+
+<h2 id="search-for-sensor-by-custom-name">Search for Sensor by Custom Name</h2>
+<pre class="highlight shell"><code>curl <span class="s1">'https://api.kiwi.ki/pre/sensors/by_fname/?session_key=94be2d729ed71bf7d5860404e6d500e1&amp;friendly_name=MyRedDoor'</span>
+</code></pre><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"total_results"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sensors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"highest_permission"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IS_HOST"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"hardware_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOOR"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"sensor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"specifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tofus Apartment"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Voltastr. 5"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13355"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">52.54189825</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.39018362</span><span class="p">,</span><span class="w">
+        </span><span class="err">}</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MyRedDoor"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"can_invite"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Find sensors by the custom names you have <a href="#assign-custom-name-to-sensor">assigned to them</a>.</p>
+
+<p>This endpoint returns a list of all sensors whose <code class="prettyprint">friendly_name</code> matches the
+given name exactly and case-sensitively.</p>
+
+<p><code class="prettyprint">GET /pre/sensors/by_fname/</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+<tr>
+<td>friendly_name</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>Sensors whose friendly_name matches the given value (case-sensitive) will be returned</td>
 <td>My Red Door</td>
 </tr>
 </tbody></table>
@@ -1073,7 +1132,7 @@ Sidenote — for this version, the trailing slash in the URI is important!
 
 <h3 id="terms-and-conditions-agb">Terms and Conditions (AGB)</h3>
 
-<p>The <a href="https://kiwi.ki/agb-2/">KIWI.KI AGBs</a> must be accepted for user account creation. The following parameter is mandatory:</p>
+<p>The <a href="https://kiwi.ki/agb/">KIWI.KI AGBs</a> must be accepted for user account creation. The following parameter is mandatory:</p>
 
 <table><thead>
 <tr>
