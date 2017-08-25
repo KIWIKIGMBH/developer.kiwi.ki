@@ -551,8 +551,6 @@ A Sensor is the device that opens a door by triggering the door buzzer. It usual
         </span><span class="nt">"sensor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9403</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"highest_permission"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"hardware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3A"</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"device_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PUBLIC"</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w"> 
           </span><span class="nt">"specifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tofus Apartment"</span><span class="p">,</span><span class="w"> 
@@ -566,8 +564,6 @@ A Sensor is the device that opens a door by triggering the door buzzer. It usual
         </span><span class="p">},</span><span class="w"> 
         </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"firmware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11110e"</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"crystal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"can_invite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -681,34 +677,10 @@ A Sensor is the device that opens a door by triggering the door buzzer. It usual
 <td>13355</td>
 </tr>
 <tr>
-<td>device_type</td>
-<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors of the given type (&#39;PUBLIC&rsquo;, &#39;PRIVATE&rsquo;, &#39;TEST&rsquo;).</td>
-<td>TEST</td>
-</tr>
-<tr>
 <td>permission</td>
 <td><code class="prettyprint">string</code> (<em>optional</em>)</td>
 <td>Only include sensors for which the <a href="#authentication">authenticated</a> user&rsquo;s <a href="#permissions">permission type</a> to the sensor is equal or greater than the given type. Possible values: &#39;IS_GUEST&rsquo;, &#39;IS_HOST&rsquo;, &#39;IS_MANAGER&rsquo;, &#39;IS_ADMIN&rsquo;.</td>
 <td>IS_HOST</td>
-</tr>
-<tr>
-<td>firmware</td>
-<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors with the given firmware version.</td>
-<td></td>
-</tr>
-<tr>
-<td>hardware</td>
-<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors with the given hardware version.</td>
-<td></td>
-</tr>
-<tr>
-<td>crystal</td>
-<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors with the given crystal type.</td>
-<td></td>
 </tr>
 </tbody></table>
 
@@ -768,8 +740,6 @@ Sidenote — for this version, the trailing slash in the URI is important!
       </span><span class="nt">"sensor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9403</span><span class="p">,</span><span class="w">
       </span><span class="nt">"highest_permission"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"hardware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3A"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"device_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PUBLIC"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"specifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tofus Apartment"</span><span class="p">,</span><span class="w">
@@ -783,14 +753,6 @@ Sidenote — for this version, the trailing slash in the URI is important!
       </span><span class="p">},</span><span class="w">
       </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"firmware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11110e"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"crystal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"last_configuration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"pushed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-29T17:07:25.360179+01:00"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-29T17:06:21.772560+01:00"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Command conf failed: retry limit exceeded"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-      </span><span class="p">},</span><span class="w">
       </span><span class="nt">"can_invite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
