@@ -441,6 +441,187 @@ A valid session key must be provided for most API requests. Remember to specify 
 </tr>
 </tbody></table>
 
+<h2 id="basic">Basic</h2>
+<pre class="highlight shell"><code>curl -X POST -d <span class="se">\</span>
+<span class="s1">'{
+    "users":["&lt;username_1&gt;", "&lt;username_2&gt;"],
+    "sensors":[&lt;sensor_id_1&gt;, &lt;sensor_id_2&gt;],
+    "permission":"&lt;permission&gt;",
+}'</span> <span class="se">\</span>
+-H <span class="s1">'Session-Key: &lt;session_key&gt;'</span> <span class="se">\</span>
+<span class="s1">'https://api.kiwi.ki/pre/permissions/user/sensor/'</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="mi">123</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"total_permissions"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code class="prettyprint">POST /pre/users/</code></p>
+
+<h3 id="headers">Headers</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+</tbody></table>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>permission</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>Permission one of <code class="prettyprint">IS_GUEST, IS_HOST, IS_MANAGER</code></td>
+<td></td>
+</tr>
+<tr>
+<td>usernames</td>
+<td><code class="prettyprint">array</code> (<em>required</em>)</td>
+<td>Array of usernames (<code class="prettyprint">string</code>)</td>
+<td></td>
+</tr>
+<tr>
+<td>sensors</td>
+<td><code class="prettyprint">array</code> (<em>required</em>)</td>
+<td>Array of sensor IDs (<code class="prettyprint">int</code> )</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h2 id="time-based">Time based</h2>
+<pre class="highlight shell"><code>curl -X POST -d <span class="se">\</span>
+<span class="s1">'{
+    "users":["&lt;username_1&gt;", "&lt;username_2&gt;"],
+    "sensors":[&lt;sensor_id_1&gt;, &lt;sensor_id_2&gt;],
+    "permission":"&lt;permission&gt;",
+    "begins": "yyyy-mm-ddThh:MM",
+    "ends": "yyyy-mm-ddThh:MM",
+    "timeofday_begins": "hh:MM",
+    "timeofday_ends": "hh:MM",
+    "weekdays": "monday,tuesday,wednesday,thursday,friday,saturday,sunday"
+}'</span> <span class="se">\</span>
+-H <span class="s1">'Session-Key: &lt;session_key&gt;'</span> <span class="se">\</span>
+<span class="s1">'https://api.kiwi.ki/pre/permissions/user/sensor/'</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="mi">123</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"total_permissions"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code class="prettyprint">POST /pre/users/</code></p>
+
+<h3 id="headers">Headers</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+</tbody></table>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>permission</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>Permission one of <code class="prettyprint">IS_GUEST, IS_HOST, IS_MANAGER, IS_ADMIN</code></td>
+<td>IS_GUEST</td>
+</tr>
+<tr>
+<td>usernames</td>
+<td><code class="prettyprint">array</code> (<em>required</em>)</td>
+<td>Array of usernames (<code class="prettyprint">string</code>)</td>
+<td>[&ldquo;user@kiwi.ki&rdquo;]</td>
+</tr>
+<tr>
+<td>sensors</td>
+<td><code class="prettyprint">array</code> (<em>required</em>)</td>
+<td>Array of sensor IDs (<code class="prettyprint">int</code> )</td>
+<td>[1, 2]</td>
+</tr>
+<tr>
+<td>begins</td>
+<td><code class="prettyprint">datetime</code> (<em>optional</em>)</td>
+<td>Date time format: <code class="prettyprint">yyyy-mm-ddThh:MM</code></td>
+<td>2019-03-01T10:00</td>
+</tr>
+<tr>
+<td>end</td>
+<td><code class="prettyprint">datetime</code> (<em>optional</em>)</td>
+<td>Date time format: <code class="prettyprint">yyyy-mm-ddThh:MM</code></td>
+<td>2019-04-01T10:00</td>
+</tr>
+<tr>
+<td>timeofday_begins</td>
+<td><code class="prettyprint">time</code> (<em>optional</em>)</td>
+<td>Time of day when the permission is active, format <code class="prettyprint">hh:MM</code></td>
+<td>10:00</td>
+</tr>
+<tr>
+<td>timeofday_ends</td>
+<td><code class="prettyprint">time</code> (<em>optional</em>)</td>
+<td>Time of day when the permission is no longer active, format <code class="prettyprint">hh:MM</code></td>
+<td>23:00</td>
+</tr>
+<tr>
+<td>weekdays</td>
+<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
+<td>List of weekdays, comma separated (<code class="prettyprint">monday,tuesday</code>)</td>
+<td>&ldquo;monday,thursday,friday&rdquo;</td>
+</tr>
+</tbody></table>
+
           <h1 id="addresses">Addresses</h1>
 <pre class="highlight shell"><code>curl https://api.kiwi.ki/pre/addresses/search/<span class="se">\?</span>street<span class="se">\=</span>Voltastr.<span class="se">\&amp;</span>number<span class="se">\=</span>5<span class="se">\&amp;</span>plz<span class="se">\=</span>13355
 </code></pre>
@@ -550,8 +731,6 @@ A Sensor is the device that opens a door by triggering the door buzzer. It usual
         </span><span class="nt">"sensor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9403</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"highest_permission"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"hardware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3A"</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"device_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PUBLIC"</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w"> 
           </span><span class="nt">"specifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tofus Apartment"</span><span class="p">,</span><span class="w"> 
@@ -563,11 +742,8 @@ A Sensor is the device that opens a door by triggering the door buzzer. It usual
           </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.39018362</span><span class="p">,</span><span class="w"> 
           </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4731</span><span class="w">
         </span><span class="p">},</span><span class="w"> 
-        </span><span class="nt">"sensor_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PewYGAAAMFO9gHlQAQAA9Q=="</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"firmware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11110e"</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"crystal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
         </span><span class="nt">"can_invite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -681,34 +857,10 @@ A Sensor is the device that opens a door by triggering the door buzzer. It usual
 <td>13355</td>
 </tr>
 <tr>
-<td>device_type</td>
-<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors of the given type (&#39;PUBLIC&rsquo;, &#39;PRIVATE&rsquo;, &#39;TEST&rsquo;).</td>
-<td>TEST</td>
-</tr>
-<tr>
 <td>permission</td>
 <td><code class="prettyprint">string</code> (<em>optional</em>)</td>
 <td>Only include sensors for which the <a href="#authentication">authenticated</a> user&rsquo;s <a href="#permissions">permission type</a> to the sensor is equal or greater than the given type. Possible values: &#39;IS_GUEST&rsquo;, &#39;IS_HOST&rsquo;, &#39;IS_MANAGER&rsquo;, &#39;IS_ADMIN&rsquo;.</td>
 <td>IS_HOST</td>
-</tr>
-<tr>
-<td>firmware</td>
-<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors with the given firmware version.</td>
-<td></td>
-</tr>
-<tr>
-<td>hardware</td>
-<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors with the given hardware version.</td>
-<td></td>
-</tr>
-<tr>
-<td>crystal</td>
-<td><code class="prettyprint">string</code> (<em>optional</em>)</td>
-<td>Only include sensors with the given crystal type.</td>
-<td></td>
 </tr>
 </tbody></table>
 
@@ -768,8 +920,6 @@ Sidenote — for this version, the trailing slash in the URI is important!
       </span><span class="nt">"sensor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9403</span><span class="p">,</span><span class="w">
       </span><span class="nt">"highest_permission"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"hardware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3A"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"device_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PUBLIC"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"specifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tofus Apartment"</span><span class="p">,</span><span class="w">
@@ -781,17 +931,8 @@ Sidenote — for this version, the trailing slash in the URI is important!
         </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.39018362</span><span class="p">,</span><span class="w">
         </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4731</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nt">"sensor_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PewYGAAAMFO9gHlQAQAA9Q=="</span><span class="p">,</span><span class="w">
       </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"firmware"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11110e"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"crystal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"last_configuration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"pushed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-29T17:07:25.360179+01:00"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-29T17:06:21.772560+01:00"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Command conf failed: retry limit exceeded"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-      </span><span class="p">},</span><span class="w">
       </span><span class="nt">"can_invite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -901,7 +1042,8 @@ Sidenote — for this version, the trailing slash in the URI is important!
 </span></code></pre>
 <p>Assigns a custom name to a sensor. Each user may assign their own names to each sensor; these custom names are visible only to the users that created them.</p>
 
-<p>Custom names will appear in the <code class="prettyprint">sensor_name</code> fields returned by the <a href="#list-sensors">/sensors</a> and <a href="#get-sensor-details">/sensors/&lt;sensor_id&gt;</a> endpoints.</p>
+<p>Custom names will appear in the <code class="prettyprint">sensor_name</code> fields returned by the <a href="#list-sensors">/sensors</a> and <a href="#get-sensor-details">/sensors/&lt;sensor_id&gt;</a> endpoints.
+You can also search for sensors by their custom names using <a href="#search-for-sensor-by-custom-name">this endpoint</a>.</p>
 
 <p><code class="prettyprint">POST /pre/fnames/sensor/&lt;sensor_id&gt;/</code></p>
 
@@ -935,6 +1077,66 @@ Sidenote — for this version, the trailing slash in the URI is important!
 </tr>
 </tbody></table>
 
+<h2 id="search-for-sensor-by-custom-name">Search for Sensor by Custom Name</h2>
+<pre class="highlight shell"><code>curl <span class="s1">'https://api.kiwi.ki/pre/sensors/by_fname/?session_key=94be2d729ed71bf7d5860404e6d500e1&amp;friendly_name=MyRedDoor'</span>
+</code></pre><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"total_results"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sensors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"highest_permission"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IS_HOST"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"hardware_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOOR"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"sensor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_owner"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"specifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tofus Apartment"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Berlin"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Voltastr. 5"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13355"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">52.54189825</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.39018362</span><span class="p">,</span><span class="w">
+        </span><span class="err">}</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"sensor_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MyRedDoor"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"can_invite"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Find sensors by the custom names you have <a href="#assign-custom-name-to-sensor">assigned to them</a>.</p>
+
+<p>This endpoint returns a list of all sensors whose <code class="prettyprint">friendly_name</code> matches the
+given name exactly and case-sensitively.</p>
+
+<p><code class="prettyprint">GET /pre/sensors/by_fname/</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session_key</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>A valid API session key. See <a href="#authentication">Authentication</a>.</td>
+<td>5633238d67040b7316456e47ec5181e0</td>
+</tr>
+<tr>
+<td>friendly_name</td>
+<td><code class="prettyprint">string</code> (<em>required</em>)</td>
+<td>Sensors whose friendly_name matches the given value (case-sensitive) will be returned</td>
+<td>My Red Door</td>
+</tr>
+</tbody></table>
+
           <h1 id="users">Users</h1>
 
 <h2 id="get-user-details">Get User Details</h2>
@@ -948,7 +1150,6 @@ Sidenote — for this version, the trailing slash in the URI is important!
   </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo.barrington@example.com"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"friendly_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nt">"contact"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Foo"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"segment_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
@@ -1072,7 +1273,7 @@ Sidenote — for this version, the trailing slash in the URI is important!
 
 <h3 id="terms-and-conditions-agb">Terms and Conditions (AGB)</h3>
 
-<p>The <a href="https://kiwi.ki/agb-2/">KIWI.KI AGBs</a> must be accepted for user account creation. The following parameter is mandatory:</p>
+<p>The <a href="https://kiwi.ki/agb/">KIWI.KI AGBs</a> must be accepted for user account creation. The following parameter is mandatory:</p>
 
 <table><thead>
 <tr>
